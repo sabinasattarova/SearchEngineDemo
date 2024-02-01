@@ -1,12 +1,9 @@
 package com.demo.stepDef;
 
-import com.demo.utils.BrowserUtils;
-import com.demo.utils.ConfigReader;
 import com.demo.utils.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import net.bytebuddy.implementation.bytecode.ShiftRight;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 

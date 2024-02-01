@@ -7,7 +7,6 @@ import com.demo.pages.YahooSearchPage;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
 
 public class SearchUtils {
 

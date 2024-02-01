@@ -9,8 +9,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-
 import static org.junit.Assert.assertEquals;
 
 public class US03_NegativeTestScenarios {

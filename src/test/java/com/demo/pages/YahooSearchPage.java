@@ -14,6 +14,5 @@ public class YahooSearchPage {
     @FindBy(name = "p")
     public WebElement searchBox;
 
-    @FindBy(xpath = "//span[@jsname='itVqKe']")
-    public WebElement clearBtn;
+
 }
