@@ -15,13 +15,6 @@
     </properties>
 
     <dependencies>
-        <!-- This dependency for REST -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>5.2.1</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -34,13 +27,6 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.5.3</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
@@ -65,21 +51,6 @@
         </dependency>
 
 
-
-        <!--  to serialize and deserialize the data-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
-        </dependency>
-
-        <!--for simplifying your code and reducing boilerplate-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 
