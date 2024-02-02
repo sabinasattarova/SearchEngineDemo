@@ -29,16 +29,9 @@ public class Driver {
         if(driverPool.get() == null){
 
             /*
-            It will read browserType from configuration.properties file.
-            This way, we can control which browser is opened from outside our code.
+            It will read browserType from configuration.properties file or from system properties.
              */
-            String browserType="";
-            if (System.getProperty("BROWSER") == null) {
-                browserType = ConfigReader.getProperty("browser");
-            } else {
-                browserType = System.getProperty("BROWSER");
-            }
-            System.out.println("Browser: " + browserType);
+            String browserType= System.getProperty("browser") != null ? browserType = System.getProperty("browser") : ConfigReader.getProperty("browser");
 
             /*
             Depending on the browserType returned from the configuration.properties
@@ -53,6 +46,7 @@ public class Driver {
                         ChromeOptions chromeOptions = new ChromeOptions();
                         chromeOptions.addArguments("--start-maximized");
                         driverPool.set(new RemoteWebDriver(url, chromeOptions));
+                        //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -66,6 +60,7 @@ public class Driver {
                         FirefoxOptions firefoxOptions=new FirefoxOptions();
                         firefoxOptions.addArguments("--start-maximized");
                         driverPool.set(new RemoteWebDriver(url, firefoxOptions));
+                        //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
 
                     } catch (Exception e) {
                         e.printStackTrace();

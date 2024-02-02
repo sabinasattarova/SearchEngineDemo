@@ -20,6 +20,8 @@ public class US03_NegativeTestScenarios {
 
     public static String searchEng;
 
+    public static String inputData;
+
     @Given("user is on the {string} page")
     public void user_is_on_the_page(String searchEngine) {
         BrowserUtils.openSearchEnginePage(searchEngine);
@@ -38,6 +40,8 @@ public class US03_NegativeTestScenarios {
                 yahooSearchPage.searchBox.sendKeys(randomData + Keys.ENTER);
                 break;
         }
+
+        inputData = randomData;
 
     }
 

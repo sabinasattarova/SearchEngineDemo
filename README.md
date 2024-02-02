@@ -22,7 +22,11 @@ Automate Google and Yahoo search pages using Selenium WebDriver, Java, and Cucum
   - [Dependencies](#dependencies)
   - [Plugins](#plugins)
 - [Configuration](#configuration)
-- 
+- [Enhancing Capabilities](#enhancing-capabilities)
+  - [Configuring Environments](#configuring-environments)
+  - [Implementing Selenium Grid](#implementing-selenium-grid)
+  - [Automating Continuous Integration with Jenkins](#automating-continuous-integration-with-jenkins)
+  - [Utilizing Java Faker for Data Generation](#utilizing-java-faker-for-data-generation)
 
 ## Project Overview
 
@@ -264,7 +268,7 @@ Feature:Search functionality across different search engines
             Examples:
             | random           |   error                                                |
             | @{faker.random}  |   We did not find results for: @{faker.random}.        |
-            | @{faker.random}  |   We did not find results for: jkabgJKbnejkbn.         |
+            | @{faker.random}  |   We did not find results for: @{faker.random}.        |
 ```
 3. Import the necessary packages in your step definition file:
 ```java
