@@ -1,6 +1,6 @@
 @us03 @ui
 Feature: Search functionality across different search engines
-  User Story: As a user when I am on the Google, Bing, Yahoo search pages
+  User Story: As a user when I am on the Google, Yahoo search pages
   I should be able to search anything and see relevant error message
 
 
