@@ -14,11 +14,15 @@ Automate Google and Yahoo search pages using Selenium WebDriver, Java, and Cucum
   - [Running All Test Cases in Parallel](#running-all-test-cases-in-parallel)
   - [Generating and Retrieving Test Reports](#generating-and-retrieving-test-reports)
 - [Troubleshooting](#troubleshooting)
-  - [No Visible Action during Test Execution](#no-visible-action-during-test-execution)
-  - 
+  - [Common Error Messages](#common-error-messages)
+    - [No Visible Action during Test Execution](#no-visible-action-during-test-execution)
+  - [Known Issues](#known-issues)
+    - [Failed Test Scenarios](#failed-test-scenarios)
 - [Dependencies and Plugins](#dependencies-and-plugins)
+  - [Dependencies](#dependencies)
+  - [Plugins](#plugins)
 - [Configuration](#configuration)
-- [License](#license)
+- 
 
 ## Project Overview
 
@@ -59,9 +63,12 @@ Follow these steps to set up the project locally:
 1. **To run the automated search tests, use the following Maven command:**
    ```bash
    mvn test
+   ```
+2. **Alternatively, you can run tests through the CukesRunner.java class.**  
+
    
 ### Running Specific Tests Using Cucumber Tags
-2. **To run certain test script or one US at a time use tags in CukesRunner.java in the tags = " " option**
+3. **To run certain test script or one US at a time use tags in CukesRunner.java in the tags = " " option**
 
 ### List of Tags
 | User Story | User Story Tag | Test Scenarios  |
@@ -76,14 +83,13 @@ Follow these steps to set up the project locally:
         mvn test -Dcucumber.filter.tags="@us01"
 
 ### Running All Test Cases in Parallel
-3. **For running all test cases in parallel, follow these steps:**
+4. **To run all test cases in parallel, follow these steps:**
 
 ![img.png](img.png)
 - Click on the Maven logo (M) on the right corner of your IDE.
 - Unfold the "SearchEngine" tab.
 - Double-click on the "test" goal.
 
-4. **Alternatively, you can run tests in parallel through the CukesRunner.java class.**
 
 
 ### Generating and Retrieving Test Reports
@@ -103,7 +109,7 @@ Test reports can be generated after running the tests. To access the reports:
 If you encounter issues while running the tests, consider the following troubleshooting tips:
 
 ### Common Error Messages
-**No Visible Action during Test Execution**
+#### No Visible Action during Test Execution
 
 If your tests are running, but you don't see any action happening, check the following features:
 
@@ -123,8 +129,34 @@ Example:
 
 ### Known Issues
 
+#### Failed Test Scenarios
 
+If you encounter failed test scenarios, it might be due to variations in google or yahoo algorithms, ranking criteria, web crawling methods, data sources.
 
+#### Recommendation: Constantly Changing Data Input
+
+To address this issue, it's recommended to utilize Java Faker libraries to generate new and dynamic data for each search. 
+
+This helps in adapting the test scenarios to variations in data, ensuring a more robust and adaptable testing approach.
+
+By constantly changing the data input, the resilience of test scenarios can be enhanced to variations in underlying factors.
+
+Example implementation:
+
+```java
+// Sample code using Java Faker for data generation
+import com.github.javafaker.Faker;
+
+public class TestDataGenerator {
+    public static void main(String[] args) {
+        Faker faker = new Faker();
+
+        // Example usage for generating a dynamic search query
+        String searchQuery = faker.lorem().word();
+        System.out.println("Generated Search Query: " + searchQuery);
+    }
+}
+```
 
 
 ## Dependencies and Plugins
@@ -164,6 +196,107 @@ control various aspects of the project. Users can locate and modify this file to
 
 
 
+## Enhancing Capabilities
+### Configuring Environments
+### Implementing Selenium Grid
+Selenium Grid is a powerful tool for distributed test execution.
+
+Implementing Selenium Grid allows to run tests concurrently across multiple machines, enabling parallel testing and cross browser testing optimizing resource utilization.
+
+#### Steps to implement
+1. Update Singleton Design Driver class in Utilities package with adding inside of switch statement following code:
+    ```properties
+         case "remote-chrome":
+                    try {
+                        // assign your grid server address
+                        String gridAddress = "";
+                        URL url = new URL("https://"+ gridAddress + ":portNum+endpoint");
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName("chrome");
+                        //driverPool.set(new RemoteWebDriver("url", desiredCapabilities));
+                        //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "remote-firefox":
+                    try {
+                        // assign your grid server address
+                        String gridAddress = "";
+                        URL url = new URL("https://"+ gridAddress + ":portNum+endpoint");
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName("firefox");
+                        //driverPool.set(new RemoteWebDriver("url", desiredCapabilities));
+                        //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+- Update following:
+  - `URL url = new URL("https://"+ gridAddress + ":portNum+endpoint");`
+    - where Grid Address is IP of your Selenium Grid
+    - portNum is indicating the specific port on which the Selenium Grid is listening for incoming requests. In the context of Selenium Grid, the default port number is often `4444`.
+    - endPoint - This is the endpoint path for the WebDriver sessions on the Selenium Grid hub. Standard path used 
+      by Selenium Grid to handle WebDriver session requests is `/wd/hub`
+
+
+### Automating Continuous Integration with Jenkins
+
+### Utilizing Java Faker for Data Generation
+1. Add Java Faker dependency to `pom.xml` file
+```properties
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version> <!-- Check for the latest version on Maven Central -->
+</dependency>
+```
+2. Create your Scenario Outline in following format:
+```properties
+Feature:Search functionality across different search engines
+    ScenarioOutline:Negative Testing Yahoo page
+        Given user is on the "yahoo" page
+        When user searches for "<random>" data
+        Then user should see "<error>" message in the result in yahoo
+            Examples:
+            | random           |   error                                                |
+            | @{faker.random}  |   We did not find results for: @{faker.random}.        |
+            | @{faker.random}  |   We did not find results for: jkabgJKbnejkbn.         |
+```
+3. Import the necessary packages in your step definition file:
+```java
+import com.github.javafaker.Faker;
+```
+4. Use Java Faker to generate random data in stepDef file:
+```properties
+
+```
 
 
 
+
+
+
+
+
+
+
+
+## Console Commands
+ To set a system property when running a Java application from the command line, you can use the `-D` option followed by the property name and value
+
+### To set browserType through console 
+```properties
+-Dbrowser=chrome
+```
+### To set environment through console
+```properties
+-Denvironment=qa1
+```
+### To enter credentials through console
+```properties
+-Dusername=admin -Dpassword=admin101
+```
