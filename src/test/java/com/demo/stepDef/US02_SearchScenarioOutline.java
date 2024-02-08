@@ -43,8 +43,9 @@ public class US02_SearchScenarioOutline {
                 assertEquals(capital, googleResultPage.resultText.getText());
                 break;
             case "yahoo":
-                BrowserUtils.waitForClickability(yahooResultPage.firstResult, 3); //to ensure page fully loaded and stable before performing assertion
-                assertEquals(capital, yahooResultPage.resultText.getText());
+                BrowserUtils.waitForClickability(yahooResultPage.firstResult, 5); //to ensure page fully loaded and
+                // stable before performing assertion
+                assertEquals(capital, yahooResultPage.capitalResult.getAttribute("title"));
         }
     }
 
@@ -57,7 +58,7 @@ public class US02_SearchScenarioOutline {
                 break;
 
             case "yahoo":
-                BrowserUtils.waitForClickability(yahooResultPage.firstResult, 3); //to ensure page fully loaded and stable before performing assertion
+                BrowserUtils.waitForClickability(yahooResultPage.firstResult, 5);//to ensure page fully loaded and stable before performing assertion
                 assertEquals(result, yahooResultPage.percentCalculationResult.getText());
         }
     }

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class YahooResultPage {
+public class YahooResultPage extends BasePage{
 
 
     public YahooResultPage(){
@@ -25,6 +25,9 @@ public class YahooResultPage {
 
     @FindBy(xpath = "//*[@id=\"web\"]/ol/li/div/div[1]/p")
     public WebElement errorMsg;
+
+    @FindBy(xpath = "//li[@class='p-r last']//a[2]")
+    public WebElement capitalResult;
 
 
 }

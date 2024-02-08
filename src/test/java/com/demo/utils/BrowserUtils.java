@@ -1,6 +1,7 @@
 package com.demo.utils;
 
 import org.junit.Assert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,7 +25,18 @@ public class BrowserUtils {
     }
 
     /**
-     * This methos will open search page based on the name of the search page the is stored in configuration.properties
+     * Opens search page of an Engine that is specified in configuration.properties file property is "searchEngine"
+     */
+    public static void openSearchPage(){
+        if (ConfigReader.getProperty("searchEngine").equals("google")){
+            openGooglePage();
+        }else if(ConfigReader.getProperty("searchEngine").equals("yahoo")){
+            openYahooPage();
+        }
+    }
+
+    /**
+     * This method will open search page based on the name of the search page the is stored in configuration.properties
      * @param searchEngineName => google, yahoo
      */
     public static void openSearchEnginePage(String searchEngineName){
@@ -45,9 +57,15 @@ public class BrowserUtils {
      * @param timeout => in seconds
      * @return => WebElement
      */
-    public static WebElement waitForClickability(WebElement element, int timeout) {
+    public static void waitForClickability(WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(timeout));
-        return wait.until(ExpectedConditions.elementToBeClickable(element));
+        try{
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }catch (TimeoutException e){
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }
+
+       // return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
 
