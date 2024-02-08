@@ -23,25 +23,9 @@ public class SearchUtils {
         locator.sendKeys(key + Keys.ENTER);
     }
 
-    public static void dismissAlert(WebElement locator){
-        locator.click();
-    }
 
-    /**
-     * WIP method that should type data into google or yahoo search pages dynamically with provided information
-     * @param searchInput => data that you are searching for
-     */
-    public static void searchFor(String searchInput) {
-        switch (ConfigReader.getProperty("searchEngine")) {
-            case "google":
-                googleSearchPage.searchBox.sendKeys(searchInput + Keys.ENTER);
-                break;
-            case "yahoo":
-                BrowserUtils.waitForClickability(yahooSearchPage.searchBox, 3); // yahoo page is taking time to load
-                yahooSearchPage.searchBox.sendKeys(searchInput + Keys.ENTER);
-                break;
-        }
-    }
+
+
 
 
 

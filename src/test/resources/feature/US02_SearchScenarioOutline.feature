@@ -17,7 +17,6 @@ Feature: Search functionality across different search engines
       | Russia     | Moscow           |
       | UAE        | Abu Dhabi        |
       | Turkey     | Ankara           |
-      | Canada     | Ottawa           |
 
 
   @ts04

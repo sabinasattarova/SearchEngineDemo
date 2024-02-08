@@ -26,8 +26,8 @@ public class US01_SimpleSearch {
     @Given("user is on the {string} search page")
     public void user_is_on_the_search_page(String searchPage) {
 
-        BrowserUtils.openSearchPage(searchPage);
-
+      //  BrowserUtils.openSearchPage(searchPage);
+        BrowserUtils.openSearchPage();
     }
 
     @When("user searches for {string}")

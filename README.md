@@ -75,11 +75,11 @@ Follow these steps to set up the project locally:
 3. **To run certain test script or one US at a time use tags in CukesRunner.java in the tags = " " option**
 
 ### List of Tags
-| User Story | User Story Tag | Test Scenarios  |
-|------------| --------------- | ---------------- |
-| US01       | @us01          | @ts01, @ts02     |
-| US02       | @us02          | @ts03, @ts04     |
-| US03       | @us03          | @ts05, @ts06     |
+| User Story | User Story Tag | Test Scenarios |
+|------------|----------------|----------------|
+| US01       | @us01          | @ts01, @ts02   |
+| US02       | @us02          | @ts03, @ts04   |
+| US03       | @us03          | @ts05, @ts06   |
  
         
  Example command to run tests for US01:
@@ -167,19 +167,19 @@ public class TestDataGenerator {
 
 ### Dependencies
 
-| Library            | Author          | Version |
-| ------------------ | --------------- | ------- |
-| WebDriverManager   | Bonigarcia       | 5.5.3   |
-| Selenium-Java      | Selenium        | 4.17.0  |
-| Cucumber-JUnit     | Cucumber        | 7.3.2   |
-| Cucumber-Java      | Cucumber        | 7.3.2   |
+| Library          | Author     | Version |
+|------------------|------------|---------|
+| WebDriverManager | Bonigarcia | 5.5.3   |
+| Selenium-Java    | Selenium   | 4.17.0  |
+| Cucumber-JUnit   | Cucumber   | 7.3.2   |
+| Cucumber-Java    | Cucumber   | 7.3.2   |
 
 ### Plugins
 
-| Plugin                | Author                  | Version       |
-| --------------------  | ----------------------- | ------------- |
-| Reporting Plugin      | Cucumber                | 7.3.0         |
-| Maven Surefire Plugin  | Apache Maven Plugins    | 3.0.0-M5      |
+| Plugin                | Author               | Version  |
+|-----------------------|----------------------|----------|
+| Reporting Plugin      | Cucumber             | 7.3.0    |
+| Maven Surefire Plugin | Apache Maven Plugins | 3.0.0-M5 |
 
 
 
@@ -251,7 +251,7 @@ Implementing Selenium Grid allows to run tests concurrently across multiple mach
 
 ### Utilizing Java Faker for Data Generation
 1. Add Java Faker dependency to `pom.xml` file
-```properties
+```
 <dependency>
     <groupId>com.github.javafaker</groupId>
     <artifactId>javafaker</artifactId>
@@ -259,24 +259,47 @@ Implementing Selenium Grid allows to run tests concurrently across multiple mach
 </dependency>
 ```
 2. Create your Scenario Outline in following format:
-```properties
-Feature:Search functionality across different search engines
-    ScenarioOutline:Negative Testing Yahoo page
-        Given user is on the "yahoo" page
-        When user searches for "<random>" data
-        Then user should see "<error>" message in the result in yahoo
-            Examples:
-            | random           |   error                                                |
-            | @{faker.random}  |   We did not find results for: @{faker.random}.        |
-            | @{faker.random}  |   We did not find results for: @{faker.random}.        |
+```
+@ts08
+Scenario Outline:Faker Negative Testing Google page
+    Given user is on the "yahoo" page
+    When user searches for "<random>" data in "yahoo"
+    Then user should see "<error>" message in the result in "yahoo" page
+    Examples:
+        | random  | error                                |
+        | random1 | We did not find results for: random. |
+        | random2 | We did not find results for: random. |
 ```
 3. Import the necessary packages in your step definition file:
 ```java
 import com.github.javafaker.Faker;
 ```
 4. Use Java Faker to generate random data in stepDef file:
-```properties
+```java
+public class US04_SearchJavaFaker {
+    private static String generatedData;
+    private final Faker faker = new Faker();
 
+    @When("user searches for {string} data in {string}")
+    public void user_searches_for_data_in(String inputData, String searchEngine) {
+
+        switch (inputData) {
+            case "random1":
+            case "random2":
+                generatedData = faker.phoneNumber().subscriberNumber(25);
+                break;
+        }
+
+        switch (searchEngine) {
+            case "google":
+                SearchUtils.sendKeys(generatedData, googleSearchPage.searchBox);
+                break;
+            case "yahoo":
+                SearchUtils.sendKeys(generatedData, yahooSearchPage.searchBox);
+                break;
+        }
+    }
+}
 ```
 
 

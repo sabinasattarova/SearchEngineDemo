@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/feature",
         glue = "com/demo/stepDef",
         dryRun = false, // to retrieve snippets
-        tags = "@ts07",
+        tags = "@us04",
         publish = true
 )
 public class CukesRunner {

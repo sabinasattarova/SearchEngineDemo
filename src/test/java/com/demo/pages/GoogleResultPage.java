@@ -1,11 +1,12 @@
 package com.demo.pages;
 
 import com.demo.utils.Driver;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class GoogleResultPage {
+public class GoogleResultPage extends BasePage {
 
     public GoogleResultPage(){
         PageFactory.initElements(Driver.getDriver(), this);
